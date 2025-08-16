@@ -1,13 +1,32 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from .models import Job
-# Create your views here.
+
 
 def home(request):
     return render(request, 'myapp/home.html')
 
 def job_list(request):
-    jobs = Job.objects.all()  # get all jobs
+    jobs = Job.objects.all()
+
+    
+    location = request.GET.get("location")
+    keyword = request.GET.get("q")
+    remote = request.GET.get("remote")
+
+    if location:
+        jobs = jobs.filter(location__icontains=location)
+    if keyword:
+        jobs = jobs.filter(
+            title__icontains=keyword
+        ) | jobs.filter(
+            description__icontains=keyword
+        ) | jobs.filter(
+            company__icontains=keyword
+        )
+    if remote:
+        jobs = jobs.filter(is_remote=True)
+
     return render(request, "jobs/job_list.html", {"jobs": jobs})
 
 def job_detail(request, job_id):

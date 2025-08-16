@@ -1,0 +1,21 @@
+<h1>Job Listings</h1>
+
+<form method="get">
+    <input type="text" name="location" placeholder="Location">
+    <input type="checkbox" name="remote" value="1"> Remote only
+    <input type="text" name="q" placeholder="Keyword (title, company, description)">
+    <button type="submit">Filter</button>
+</form>
+
+<ul>
+  {% for job in jobs %}
+    <li>
+      <strong>{{ job.title }}</strong> at {{ job.company }} <br>
+      {{ job.location }} {% if job.is_remote %}(Remote){% endif %} <br>
+      Salary: {{ job.salary|default:"Not specified" }} <br>
+      Posted: {{ job.posted_date }}
+    </li>
+  {% empty %}
+    <li>No jobs found.</li>
+  {% endfor %}
+</ul>
