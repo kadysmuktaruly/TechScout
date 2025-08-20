@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from .models import Job
+from .forms import JobForm
 
 
 def home(request):
@@ -33,7 +34,17 @@ def job_detail(request, job_id):
     return HttpResponse(f"Job detail {job_id}")
 
 def job_create(request):
-    return HttpResponse("Create job")
+    if request.method == "POST":
+        form = JobForm(request.POST)
+        if form.is_valid():
+            job = form.save(commit=False)
+            job.posted_by = request.user
+            job.save()
+            return HttpResponse("Job created successfully!")
+    else:
+        form = JobForm()
+    
+    return render(request, "jobs/job_form.html", {"form": form})
 
 def job_update(request, job_id):
     return HttpResponse(f"Update job {job_id}")

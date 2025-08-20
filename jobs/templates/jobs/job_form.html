@@ -1,0 +1,20 @@
+<h1>Job create</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="title">Job Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="company">Company:</label>
+    <input type="text" id="company" name="company" required>
+
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location">
+
+    <label for="is_remote">Remote:</label>
+    <input type="checkbox" id="is_remote" name="is_remote">
+
+    <label for="salary">Salary:</label>
+    <input type="text" id="salary" name="salary">
+
+    <button type="submit">Create Job</button>
