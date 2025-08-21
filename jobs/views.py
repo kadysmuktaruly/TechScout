@@ -5,7 +5,7 @@ from .forms import JobForm
 
 
 def home(request):
-    return render(request, 'myapp/home.html')
+    return render(request, 'jobs/home.html')
 
 def job_list(request):
     jobs = Job.objects.all()

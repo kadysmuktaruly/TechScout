@@ -1,20 +1,16 @@
-<h1>Job create</h1>
+{% extends "base.html" %}
 
-<form method="post">
+{% block content %}
+  <h2 class="text-2xl font-bold mb-4">
+    {% if form.instance.pk %} Edit Job {% else %} Create Job {% endif %}
+  </h2>
+
+  <form method="post">
     {% csrf_token %}
-    <label for="title">Job Title:</label>
-    <input type="text" id="title" name="title" required>
+    {{ form.as_p }}
 
-    <label for="company">Company:</label>
-    <input type="text" id="company" name="company" required>
-
-    <label for="location">Location:</label>
-    <input type="text" id="location" name="location">
-
-    <label for="is_remote">Remote:</label>
-    <input type="checkbox" id="is_remote" name="is_remote">
-
-    <label for="salary">Salary:</label>
-    <input type="text" id="salary" name="salary">
-
-    <button type="submit">Create Job</button>
+    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">
+      Save
+    </button>
+  </form>
+{% endblock %}
