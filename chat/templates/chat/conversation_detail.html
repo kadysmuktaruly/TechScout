@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Conversation{% endblock %}
+
+{% block content %}
+<h2>Conversation</h2>
+
+<div style="border:1px solid #ccc; padding:10px; margin-bottom:15px; max-height:400px; overflow-y:auto;">
+  {% for msg in messages %}
+    <p>
+      <strong>{{ msg.sender.username }}</strong>: {{ msg.text }}
+      <br>
+      <small>{{ msg.timestamp|date:"Y-m-d H:i" }}</small>
+    </p>
+    <hr>
+  {% empty %}
+    <p>No messages yet.</p>
+  {% endfor %}
+</div>
+
+<form method="post" style="margin-top: 15px;">
+  {% csrf_token %}
+  <input type="text" name="message" placeholder="Type your message..." required style="width:80%; padding:5px;">
+  <button type="submit" style="padding:5px 10px;">Send</button>
+</form>
+
+<p><a href="{% url 'conversation_list' %}">← Back to conversations</a></p>
+{% endblock %}

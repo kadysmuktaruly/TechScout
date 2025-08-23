@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}IT Head Hunter{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        header, footer {
+            background-color: #222;
+            color: white;
+            padding: 15px;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav a {
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            min-height: 70vh;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>IT Head Hunter</h1>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'job_list' %}">Jobs</a>
+            <a href="{% url 'conversation_list' %}">Chat</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}">Profile</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'signup' %}">Signup</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2025 IT Head Hunter</p>
+    </footer>
+</body>
+</html>

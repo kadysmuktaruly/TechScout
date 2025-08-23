@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Your Conversations{% endblock %}
+
+{% block content %}
+<h2>Your Conversations</h2>
+<ul>
+  {% for convo in conversations %}
+    <li>
+      <a href="{% url 'conversation_detail' convo.id %}">
+        Conversation with 
+        {% for user in convo.participants.all %}
+          {% if user != request.user %}
+            {{ user.username }}
+          {% endif %}
+        {% endfor %}
+      </a>
+    </li>
+  {% empty %}
+    <li>You have no conversations yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
