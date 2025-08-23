@@ -27,5 +27,6 @@ def start_conversation(request, user_id):
     conversation = Conversation.objects.filter(participants=request.user).filter(participants=other_user).first()
     if not conversation:
         conversation = Conversation.objects.create()
-        conversation.participants.set([request.user, other_user])
+        conversation.participants.add(request.user)
+        conversation.participants.add(other_user)
     return redirect("conversation_detail", pk=conversation.pk)
