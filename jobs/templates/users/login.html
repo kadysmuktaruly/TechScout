@@ -1,6 +1,68 @@
-<h2>Login</h2>
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="login-container">
+  <div class="login-card">
+    <h2 class="login-title">Login</h2>
+    <form method="POST" class="login-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+  </div>
+</div>
+
+<style>
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+
+  .login-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+    width: 350px;
+  }
+
+  .login-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 1.6rem;
+  }
+
+  .login-form p {
+    margin-bottom: 1rem;
+  }
+
+  .login-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 5px;
+    font-size: 14px;
+  }
+
+  .login-btn {
+    width: 100%;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background 0.3s;
+  }
+
+  .login-btn:hover {
+    background: #4338ca;
+  }
+</style>
+{% endblock %}

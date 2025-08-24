@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ job.title }} - Job Details</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #a8e6cf 0%, #88d8c0 50%, #7fcdcd 100%);
+            min-height: 100vh;
+            padding: 2rem 0;
+            color: #2d3748;
+        }
+        
+        .detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #4a9b8e;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .back-link:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 155, 142, 0.15);
+            color: #4a9b8e;
+            text-decoration: none;
+        }
+        
+        .job-detail-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .job-detail-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #a8e6cf, #6bb77b);
+        }
+        
+        .job-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .job-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .meta-item {
+            background: rgba(168, 230, 207, 0.2);
+            padding: 1.25rem;
+            border-radius: 16px;
+            border: 1px solid rgba(74, 155, 142, 0.2);
+        }
+        
+        .meta-label {
+            font-weight: 700;
+            color: #4a9b8e;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .description-section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #4a9b8e;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .job-description {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(74, 155, 142, 0.1);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #4a5568;
+        }
+        
+        .posted-date {
+            background: rgba(107, 183, 123, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(107, 183, 123, 0.2);
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .posted-date .meta-label {
+            justify-content: center;
+            color: #6bb77b;
+        }
+        
+        .posted-date .meta-value {
+            color: #4a9b8e;
+            font-size: 1rem;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .detail-container {
+                padding: 0 0.5rem;
+            }
+            
+            .job-detail-card {
+                padding: 2rem;
+            }
+            
+            .job-title {
+                font-size: 2rem;
+            }
+            
+            .job-meta {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .meta-item {
+                padding: 1rem;
+            }
+            
+            .job-description {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem 0;
+            }
+            
+            .job-detail-card {
+                padding: 1.5rem;
+                border-radius: 16px;
+            }
+            
+            .job-title {
+                font-size: 1.75rem;
+            }
+            
+            .back-link {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="detail-container">
+        <a href="{% url 'job_list' %}" class="back-link">
+            <i class="bi bi-arrow-left"></i>
+            Back to Job Listings
+        </a>
+        
+        <div class="job-detail-card">
+            <h1 class="job-title">{{ job.title }}</h1>
+            
+            <div class="job-meta">
+                <div class="meta-item">
+                    <div class="meta-label">
+                        <i class="bi bi-building"></i>
+                        Company
+                    </div>
+                    <div class="meta-value">{{ job.company }}</div>
+                </div>
+                
+                <div class="meta-item">
+                    <div class="meta-label">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        Location
+                    </div>
+                    <div class="meta-value">{{ job.location }}</div>
+                </div>
+            </div>
+            
+            <div class="description-section">
+                <h2 class="section-title">
+                    <i class="bi bi-file-text"></i>
+                    Job Description
+                </h2>
+                <div class="job-description">
+                    {{ job.description }}
+                </div>
+            </div>
+            
+            <div class="posted-date">
+                <div class="meta-label">
+                    <i class="bi bi-calendar-check"></i>
+                    Posted On
+                </div>
+                <div class="meta-value">{{ job.posted_at }}</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
