@@ -1,6 +1,133 @@
-<h2>Sign Up</h2>
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Sign Up</button>
-</form>
+<div class="signup-container">
+  <div class="signup-card">
+    <h2 class="signup-title">Sign Up</h2>
+    <form method="POST" class="signup-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="signup-btn">Sign Up</button>
+    </form>
+  </div>
+</div>
+
+<style>
+  .signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background: #fafafa;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    padding: 2rem 1rem;
+  }
+
+  .signup-card {
+    background: white;
+    padding: 2.5rem 2rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .signup-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #000;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+
+  .signup-form p {
+    margin-bottom: 1.5rem;
+  }
+
+  .signup-form label {
+    display: block;
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .signup-form input[type="text"],
+  .signup-form input[type="email"],
+  .signup-form input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    background: white;
+    color: #333;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .signup-form input[type="text"]:focus,
+  .signup-form input[type="email"]:focus,
+  .signup-form input[type="password"]:focus {
+    outline: none;
+    border-color: #333;
+  }
+
+  .signup-btn {
+    width: 100%;
+    background: transparent;
+    color: #333;
+    border: 1px solid #333;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    font-weight: 400;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .signup-btn:hover {
+    background: #333;
+    color: white;
+  }
+
+  /* Remove default form styling */
+  .signup-form p {
+    margin-bottom: 1.5rem;
+  }
+
+  .signup-form ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .signup-form .errorlist {
+    color: #666;
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+  }
+
+  .signup-form .helptext {
+    color: #666;
+    font-size: 0.75rem;
+    margin-top: 0.3rem;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 480px) {
+    .signup-container {
+      padding: 1rem;
+    }
+    
+    .signup-card {
+      padding: 2rem 1.5rem;
+    }
+    
+    .signup-title {
+      font-size: 1.3rem;
+    }
+  }
+</style>

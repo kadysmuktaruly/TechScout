@@ -1,16 +1,108 @@
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-  <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md text-center">
-    <h2 class="text-2xl font-bold mb-4 text-gray-800">
-      Welcome, <span class="text-indigo-600">{{ user.username }}</span>!
-    </h2>
+<div class="profile-container">
+  <div class="profile-card">
+    <div class="greeting">
+      Welcome, <span class="username">{{ user.username }}</span>
+    </div>
     
-    <p class="text-gray-600 mb-6">
-      <strong>Email:</strong> {{ user.email }}
-    </p>
+    <div class="email-info">
+      {{ user.email }}
+    </div>
 
-    <a href="{% url 'logout' %}" 
-       class="w-full inline-block py-2 px-4 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition duration-200">
+    <a href="{% url 'home' %}" class="home-btn">
+      Home
+    </a>
+
+    <a href="{% url 'logout' %}" class="logout-btn">
       Logout
     </a>
   </div>
 </div>
+
+<style>
+  .profile-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #fafafa;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    padding: 2rem;
+  }
+
+  .profile-card {
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 4px;
+    max-width: 320px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #e5e5e5;
+  }
+
+  .greeting {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #333;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+  }
+
+  .username {
+    font-weight: 500;
+    color: #000;
+  }
+
+  .email-info {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+  }
+
+  .home-btn,
+  .logout-btn {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    border: 1px solid #000;
+    margin: 0.25rem;
+  }
+
+  .home-btn {
+    background: white;
+    color: #000;
+  }
+
+  .home-btn:hover {
+    background: #000;
+    color: white;
+  }
+
+  .logout-btn {
+    background: #000;
+    color: white;
+  }
+
+  .logout-btn:hover {
+    background: white;
+    color: #000;
+  }
+
+  @media (max-width: 480px) {
+    .profile-container {
+      padding: 1rem;
+    }
+    
+    .profile-card {
+      padding: 2rem 1.5rem;
+    }
+    
+    .greeting {
+      font-size: 1.3rem;
+    }
+  }
+</style>

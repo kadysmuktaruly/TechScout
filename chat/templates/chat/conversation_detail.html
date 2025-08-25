@@ -3,26 +3,221 @@
 {% block title %}Conversation{% endblock %}
 
 {% block content %}
-<h2>Conversation</h2>
+<div class="conversation-container">
+  <div class="conversation-content">
+    <h2 class="conversation-title">Conversation</h2>
 
-<div style="border:1px solid #ccc; padding:10px; margin-bottom:15px; max-height:400px; overflow-y:auto;">
-  {% for msg in messages %}
-    <p>
-      <strong>{{ msg.sender.username }}</strong>: {{ msg.text }}
-      <br>
-      <small>{{ msg.timestamp|date:"Y-m-d H:i" }}</small>
-    </p>
-    <hr>
-  {% empty %}
-    <p>No messages yet.</p>
-  {% endfor %}
+    <div class="messages-container">
+      {% for msg in messages %}
+        <div class="message-item">
+          <div class="message-header">
+            <span class="message-sender">{{ msg.sender.username }}</span>
+            <span class="message-time">{{ msg.timestamp|date:"Y-m-d H:i" }}</span>
+          </div>
+          <div class="message-text">{{ msg.text }}</div>
+        </div>
+      {% empty %}
+        <div class="no-messages">No messages yet.</div>
+      {% endfor %}
+    </div>
+
+    <form method="post" class="message-form">
+      {% csrf_token %}
+      <div class="form-row">
+        <input type="text" name="message" placeholder="Type your message..." required class="message-input">
+        <button type="submit" class="send-btn">Send</button>
+      </div>
+    </form>
+
+    <div class="back-link-container">
+      <a href="{% url 'conversation_list' %}" class="back-link">← Back to conversations</a>
+    </div>
+  </div>
 </div>
 
-<form method="post" style="margin-top: 15px;">
-  {% csrf_token %}
-  <input type="text" name="message" placeholder="Type your message..." required style="width:80%; padding:5px;">
-  <button type="submit" style="padding:5px 10px;">Send</button>
-</form>
+<style>
+  .conversation-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    background: #fafafa;
+    min-height: 80vh;
+  }
 
-<p><a href="{% url 'conversation_list' %}">← Back to conversations</a></p>
+  .conversation-content {
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    padding: 2.5rem 2rem;
+  }
+
+  .conversation-title {
+    color: #000;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .messages-container {
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    max-height: 400px;
+    overflow-y: auto;
+    background: #fafafa;
+  }
+
+  .message-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .message-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .message-sender {
+    color: #000;
+    font-weight: 400;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .message-time {
+    color: #666;
+    font-size: 0.75rem;
+  }
+
+  .message-text {
+    color: #333;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .no-messages {
+    color: #666;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  .message-form {
+    margin-bottom: 2rem;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .message-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    background: white;
+    color: #333;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .message-input:focus {
+    outline: none;
+    border-color: #333;
+  }
+
+  .send-btn {
+    background: transparent;
+    color: #333;
+    border: 1px solid #333;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    font-weight: 400;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .send-btn:hover {
+    background: #333;
+    color: white;
+  }
+
+  .back-link-container {
+    text-align: center;
+  }
+
+  .back-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+
+  .back-link:hover {
+    border-bottom-color: #333;
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    .conversation-container {
+      padding: 2rem 0.5rem;
+    }
+    
+    .conversation-content {
+      padding: 2rem 1.5rem;
+    }
+    
+    .conversation-title {
+      font-size: 1.3rem;
+    }
+    
+    .messages-container {
+      padding: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .conversation-content {
+      padding: 1.5rem 1rem;
+    }
+    
+    .conversation-title {
+      font-size: 1.2rem;
+    }
+    
+    .form-row {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .send-btn {
+      padding: 0.75rem;
+    }
+    
+    .message-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+</style>
 {% endblock %}

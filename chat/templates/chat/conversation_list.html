@@ -3,21 +3,115 @@
 {% block title %}Your Conversations{% endblock %}
 
 {% block content %}
-<h2>Your Conversations</h2>
-<ul>
-  {% for convo in conversations %}
-    <li>
-      <a href="{% url 'conversation_detail' convo.id %}">
-        Conversation with 
-        {% for user in convo.participants.all %}
-          {% if user != request.user %}
-            {{ user.username }}
-          {% endif %}
-        {% endfor %}
-      </a>
-    </li>
-  {% empty %}
-    <li>You have no conversations yet.</li>
-  {% endfor %}
-</ul>
+<div class="conversations-container">
+  <div class="conversations-content">
+    <h2 class="conversations-title">Your Conversations</h2>
+    <ul class="conversations-list">
+      {% for convo in conversations %}
+        <li class="conversation-item">
+          <a href="{% url 'conversation_detail' convo.id %}" class="conversation-link">
+            Conversation with 
+            {% for user in convo.participants.all %}
+              {% if user != request.user %}
+                {{ user.username }}
+              {% endif %}
+            {% endfor %}
+          </a>
+        </li>
+      {% empty %}
+        <li class="no-conversations">You have no conversations yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .conversations-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    background: #fafafa;
+    min-height: 80vh;
+  }
+
+  .conversations-content {
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    padding: 2.5rem 2rem;
+  }
+
+  .conversations-title {
+    color: #000;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .conversations-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .conversation-item {
+    border-bottom: 1px solid #e5e5e5;
+    padding: 0;
+  }
+
+  .conversation-item:last-child {
+    border-bottom: none;
+  }
+
+  .conversation-link {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+  }
+
+  .conversation-link:hover {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .no-conversations {
+    color: #666;
+    text-align: center;
+    padding: 2rem 0;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .conversations-container {
+      padding: 2rem 0.5rem;
+    }
+    
+    .conversations-content {
+      padding: 2rem 1.5rem;
+    }
+    
+    .conversations-title {
+      font-size: 1.3rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .conversations-content {
+      padding: 1.5rem 1rem;
+    }
+    
+    .conversations-title {
+      font-size: 1.2rem;
+    }
+    
+    .conversation-link {
+      font-size: 0.85rem;
+    }
+  }
+</style>
 {% endblock %}
